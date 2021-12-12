@@ -3,6 +3,8 @@ import pyxel
 from jeusaut.ground import Ground
 from jeusaut.buddy import Buddy
 from jeusaut.lava import Lava
+from jeusaut.ui import *
+
 
 class GameState:
     def __init__(self):
@@ -32,10 +34,10 @@ class MainState(GameState):
             print("Game Over!")
             pyxel.quit()
 
-        if pyxel.btnr(pyxel.KEY_SPACE) or pyxel.btnr(pyxel.MOUSE_LEFT_BUTTON):
+        if pyxel.btnr(pyxel.KEY_SPACE) or pyxel.btnr(pyxel.MOUSE_BUTTON_LEFT):
             self.jump_released = True
 
-        if (pyxel.btn(pyxel.KEY_SPACE) or pyxel.btn(pyxel.MOUSE_LEFT_BUTTON)) and self.jump_released and self.buddy.can_jump:
+        if (pyxel.btn(pyxel.KEY_SPACE) or pyxel.btn(pyxel.MOUSE_BUTTON_LEFT)) and self.jump_released and self.buddy.can_jump:
             self.jump_released = False
 
             self.buddy.jump()
@@ -59,9 +61,15 @@ class MainState(GameState):
 
 
 class PauseState(GameState):
+    def __init__(self):
+        self.ui = [Button(pyxel.width / 2 - 8, pyxel.height - 20, "Quit", pyxel.quit)]
+
     def update(self, game_engine):
         if pyxel.btnr(pyxel.KEY_P) or pyxel.btnr(pyxel.KEY_ESCAPE):
             game_engine.change_state(MainState)
+
+        for item in self.ui:
+            item.update()
 
     def draw(self):
         pyxel.cls(0)
@@ -70,3 +78,6 @@ class PauseState(GameState):
 
         pyxel.text(x + 1, y + 1, "PAUSE", 5)
         pyxel.text(x, y, "PAUSE", 6)
+
+        for item in self.ui:
+            item.draw()

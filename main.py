@@ -11,7 +11,7 @@ from jeusaut.game_engine import GameEngine
 from jeusaut.game_states import MainState
 
 if __name__ == "__main__":
-    pyxel.init(80, 128, quit_key=pyxel.KEY_NONE)
+    pyxel.init(80, 128, fps=30, quit_key=pyxel.KEY_NONE)
     pyxel.mouse(True)
 
     game = GameEngine()

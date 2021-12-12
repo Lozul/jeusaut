@@ -5,6 +5,9 @@ class Object:
         self.width = width
         self.height = height
 
+    def is_colliding_xy(self, x, y):
+        return not (x < self.x or x > self.x + self.width or y < self.y or y > self.y + self.height)
+
     def is_colliding(self, other):
         if not isinstance(other, Object):
             return False
