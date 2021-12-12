@@ -1,5 +1,5 @@
 
-from jeusaut.game_states import MainState
+from jeusaut.game_states import MainState, PauseState
 
 class GameEngine:
 
@@ -7,7 +7,7 @@ class GameEngine:
     _current_state = None
 
     def __init__(self):
-        self._states.append(MainState())
+        self._states = [MainState(), PauseState()]
 
     def change_state(self, state_type):
         for i in range(len(self._states)):

@@ -43,6 +43,9 @@ class MainState(GameState):
             self.ground.shift_ground()
             self.lava.stop()
 
+        if pyxel.btnr(pyxel.KEY_P) or pyxel.btnr(pyxel.KEY_ESCAPE):
+            game_engine.change_state(PauseState)
+
         self.buddy.update()
         self.ground.update()
         self.lava.update()
@@ -52,4 +55,18 @@ class MainState(GameState):
         
         self.buddy.draw()
         self.ground.draw()
-        self.lava.draw() 
+        self.lava.draw()
+
+
+class PauseState(GameState):
+    def update(self, game_engine):
+        if pyxel.btnr(pyxel.KEY_P) or pyxel.btnr(pyxel.KEY_ESCAPE):
+            game_engine.change_state(MainState)
+
+    def draw(self):
+        pyxel.cls(0)
+
+        x, y = pyxel.width / 2 - 10, 20
+
+        pyxel.text(x + 1, y + 1, "PAUSE", 5)
+        pyxel.text(x, y, "PAUSE", 6)
