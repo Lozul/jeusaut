@@ -5,8 +5,16 @@
 - multiplayer: split screen for two players
 - animate ground shifting
 """
+import pyxel
 
-from jeusaut.game import Game
+from jeusaut.game_engine import GameEngine
+from jeusaut.game_states import MainState
 
 if __name__ == "__main__":
-    Game()
+    pyxel.init(80, 128)
+    pyxel.mouse(True)
+
+    game = GameEngine()
+    game.change_state(MainState)
+
+    pyxel.run(game.update, game.draw)

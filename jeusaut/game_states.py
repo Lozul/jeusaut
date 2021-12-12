@@ -4,9 +4,20 @@ from jeusaut.ground import Ground
 from jeusaut.buddy import Buddy
 from jeusaut.lava import Lava
 
-class Game:
+class GameState:
     def __init__(self):
-        pyxel.init(80, 128)
+        pass
+
+    def update(self, game_engine):
+        pass
+
+    def draw(self):
+        pass
+
+
+class MainState(GameState):
+    def __init__(self):
+        GameState.__init__(self)
 
         self.ground = Ground(6, pyxel.height / 2)
 
@@ -15,11 +26,8 @@ class Game:
         self.lava = Lava(start=pyxel.height, end=0)
 
         self.jump_released = True
-        self.debug = False
 
-        pyxel.run(self.update, self.draw)
-
-    def update(self):
+    def update(self, game_engine):
         if self.buddy.hp <= 0 or self.buddy.is_colliding(self.lava):
             print("Game Over!")
             pyxel.quit()
@@ -39,12 +47,9 @@ class Game:
         self.ground.update()
         self.lava.update()
 
-        if pyxel.btnr(pyxel.KEY_F1):
-            self.debug = not self.debug
-
     def draw(self):
         pyxel.cls(0)
         
         self.buddy.draw()
         self.ground.draw()
-        self.lava.draw()  
+        self.lava.draw() 
