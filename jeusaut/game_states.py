@@ -21,6 +21,9 @@ class MainState(GameState):
     def __init__(self):
         GameState.__init__(self)
 
+        self.restart()
+
+    def restart(self):
         self.ground = Ground(6, pyxel.height / 2)
 
         self.buddy = Buddy(8, 0, 16, 16, self.ground.blocks)
@@ -62,22 +65,34 @@ class MainState(GameState):
 
 class PauseState(GameState):
     def __init__(self):
-        self.ui = [Button(pyxel.width / 2 - 8, pyxel.height - 20, "Quit", pyxel.quit)]
+        y = pyxel.height / 2 - 18
+
+        self.ui = [
+            Text(pyxel.width / 2 - 10, y, "Pause", color=6),
+            Button(pyxel.width / 2 - 14, y + 15, "Restart", command="restart", color=14),
+            Button(pyxel.width / 2 - 8, y + 30, "Quit", command="quit", color=14)
+        ]
 
     def update(self, game_engine):
         if pyxel.btnr(pyxel.KEY_P) or pyxel.btnr(pyxel.KEY_ESCAPE):
             game_engine.change_state(MainState)
 
+        if pyxel.btn(pyxel.KEY_R):
+            game_engine.restart()
+
+        if pyxel.btn(pyxel.KEY_Q):
+            pyxel.quit()
+
         for item in self.ui:
-            item.update()
+            res = item.update()
+
+            if res == "quit":
+                pyxel.quit()
+            elif res == "restart":
+                game_engine.restart()
 
     def draw(self):
-        pyxel.cls(0)
-
-        x, y = pyxel.width / 2 - 10, 20
-
-        pyxel.text(x + 1, y + 1, "PAUSE", 5)
-        pyxel.text(x, y, "PAUSE", 6)
+        pyxel.cls(1)
 
         for item in self.ui:
             item.draw()
