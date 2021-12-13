@@ -28,10 +28,10 @@ class Spike(Block):
         current_time = time()
         elapsed_time = current_time - self.timer
 
-        if not self.activated and elapsed_time > 2:
+        if not self.activated and elapsed_time > 1:
             self.activated = True
             self.timer = current_time
-        elif self.activated and elapsed_time > 1:
+        elif self.activated and elapsed_time > 1.5:
             self.activated = False
             self.timer = current_time
 
@@ -39,7 +39,7 @@ class Spike(Block):
         super().draw()
         elapsed_time = time() - self.timer
 
-        if not self.activated and elapsed_time > 1:
+        if not self.activated and elapsed_time > 0.5:
             pyxel.line(self.x, self.y, self.x + self.width - 1, self.y, 10)
 
         if self.activated:

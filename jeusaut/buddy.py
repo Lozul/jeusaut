@@ -15,7 +15,7 @@ class Buddy(Body):
         self.hp = self.max_hp
 
         self.invicible_timer = 0
-        self.max_invicible_time = 3
+        self.max_invicible_time = 2
 
     @property
     def can_jump(self):
