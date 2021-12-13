@@ -6,20 +6,20 @@ from jeusaut.lava import Lava
 from jeusaut.ui import *
 
 
-class GameState:
+class State:
     def __init__(self):
         pass
 
-    def update(self, game_engine):
+    def update(self, engine):
         pass
 
     def draw(self):
         pass
 
 
-class MainState(GameState):
+class MainState(State):
     def __init__(self):
-        GameState.__init__(self)
+        State.__init__(self)
 
         self.restart()
 
@@ -32,7 +32,7 @@ class MainState(GameState):
 
         self.jump_released = True
 
-    def update(self, game_engine):
+    def update(self, engine):
         if self.buddy.hp <= 0 or self.buddy.is_colliding(self.lava):
             print("Game Over!")
             pyxel.quit()
@@ -49,7 +49,7 @@ class MainState(GameState):
             self.lava.stop()
 
         if pyxel.btnr(pyxel.KEY_P) or pyxel.btnr(pyxel.KEY_ESCAPE):
-            game_engine.change_state(PauseState)
+            engine.change_state(PauseState)
 
         self.buddy.update()
         self.ground.update()
@@ -63,8 +63,9 @@ class MainState(GameState):
         self.lava.draw()
 
 
-class PauseState(GameState):
+class PauseState(State):
     def __init__(self):
+        State.__init__(self)
         y = pyxel.height / 2 - 18
 
         self.ui = [
@@ -73,12 +74,12 @@ class PauseState(GameState):
             Button(pyxel.width / 2 - 8, y + 30, "Quit", command="quit", color=14)
         ]
 
-    def update(self, game_engine):
+    def update(self, engine):
         if pyxel.btnr(pyxel.KEY_P) or pyxel.btnr(pyxel.KEY_ESCAPE):
-            game_engine.change_state(MainState)
+            engine.change_state(MainState)
 
         if pyxel.btn(pyxel.KEY_R):
-            game_engine.restart()
+            engine.restart()
 
         if pyxel.btn(pyxel.KEY_Q):
             pyxel.quit()

@@ -1,7 +1,7 @@
 
-from jeusaut.game_states import MainState, PauseState
+from jeusaut.states import MainState, PauseState
 
-class GameEngine:
+class Engine:
 
     _states = []
     _main_state = None
