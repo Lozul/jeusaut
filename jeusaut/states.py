@@ -58,8 +58,8 @@ class MainState(State):
     def draw(self):
         pyxel.cls(0)
         
-        self.buddy.draw()
         self.ground.draw()
+        self.buddy.draw()
         self.lava.draw()
 
 
@@ -90,7 +90,7 @@ class PauseState(State):
             if res == "quit":
                 pyxel.quit()
             elif res == "restart":
-                game_engine.restart()
+                engine.restart()
 
     def draw(self):
         pyxel.cls(1)

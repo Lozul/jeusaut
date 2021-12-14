@@ -3,7 +3,7 @@ from time import time
 import pyxel
 
 from jeusaut.physics import Body
-from jeusaut.blocks import Spike
+from jeusaut.blocks import *
 
 class Buddy(Body):
     def __init__(self, x, y, width, height, ground):
@@ -25,7 +25,10 @@ class Buddy(Body):
     def taking_damage(self):
         b = self.ground[1]
 
-        return isinstance(b, Spike) and b.activated
+        spiked = isinstance(b, Spike) and b.activated
+        towbed = isinstance(b, Towbe) and b.trap_y + b.height >= self.y
+
+        return spiked or towbed
 
     @property
     def is_invicible(self):

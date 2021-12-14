@@ -19,7 +19,7 @@ class Ground:
         if random() > 0.2:
             new_block = Block(x, y)
         else:
-            new_block = Spike(x, y)
+            new_block = Towbe(x, y)
 
         self.blocks.append(new_block)
 

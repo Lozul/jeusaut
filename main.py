@@ -1,6 +1,5 @@
 """ TODO
 
-- better map generation
 - multiplayer: split screen for two players
 - animate ground shifting
 """
